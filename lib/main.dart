@@ -21,6 +21,8 @@ class UikExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +30,22 @@ class MyHomePage extends StatelessWidget {
         title: const Text('UikExpenses'),
         backgroundColor: Colors.cyan.shade300,
       ),
-      body: const Center(
-        child: Text('Initial Version'),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            width: double.infinity,
+            child: Card(
+              color:  Colors.cyan.shade300,
+              child: const Text('Graphic'),
+            ),
+          ),
+          const SizedBox(
+            width: double.infinity,
+            child: Card(
+              child: Text('List'),
+            ),
+          ),
+        ],
       ),
     );
   }
