@@ -1,18 +1,19 @@
+import 'package:bugrural/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'screens/login_screen.dart';
-import 'theme/app_theme.dart';
+import 'package:bugrural/utils/theme.dart';
 
 void main() {
-  runApp(BugRuralApp());
+  runApp(MyApp());
 }
 
-class BugRuralApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bug Rural',
-      theme: AppTheme.lightTheme,
-      home: LoginScreen(),
+      theme: appTheme,
+      initialRoute: Routes.login,
+      routes: Routes.getRoutes(),
     );
   }
 }

@@ -1,7 +1,13 @@
+import 'package:flutter/material.dart';
+
 class Property {
   final String name;
   final String location;
-  final String imageUrl;
+  final Color backgroundColor;
 
-  Property({required this.name, required this.location, required this.imageUrl});
+  Property({
+    required this.name,
+    required this.location,
+    required this.backgroundColor,
+  });
 }

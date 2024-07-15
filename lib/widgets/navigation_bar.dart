@@ -1,21 +1,37 @@
+import 'package:bugrural/utils/routes.dart';
 import 'package:flutter/material.dart';
 
-class NavigationBarCustom extends StatelessWidget {
-  final int currentIndex;
-  final Function(int) onTap;
-
-  NavigationBarCustom({required this.currentIndex, required this.onTap});
-
+class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: currentIndex,
-      onTap: onTap,
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Alerts'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.notifications),
+          label: 'Alertas',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Perfil',
+        ),
       ],
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, Routes.home);
+            break;
+          case 1:
+            Navigator.pushNamed(context, Routes.alerts);
+            break;
+          case 2:
+            Navigator.pushNamed(context, Routes.profile);
+            break;
+        }
+      },
     );
   }
 }

@@ -1,36 +1,50 @@
-import 'package:bugrural/widgets/custom_card.dart';
+import 'package:bugrural/utils/routes.dart';
+import 'package:bugrural/widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
-import '../models/user.dart';
-import '../widgets/user_header.dart';
-import '../widgets/navigation_bar.dart';
-import 'pest_details_screen.dart';
 
 class PestScreen extends StatelessWidget {
-  final User user = User(name: 'José da Silva', email: 'admin@bugrural.com.br', avatarUrl: 'https://example.com/avatar.png');
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          UserHeader(user: user),
-          Card(
-            child: ListTile(
-              title: Text('Monitoramento de Pragas'),
-              subtitle: Text('Praga detectada'),
-            ),
-          ),
-          // Add list of traps here
-          CustomCard(
-            title: 'TRAP-01',
-            subtitle: 'Armadilha Tipo X21',
-            icon: Icons.bug_report,
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PestDetailsScreen())), color: Colors.red,
-          ),
-        ],
+      appBar: AppBar(
+        title: Text('Pragas'),
       ),
-      bottomNavigationBar: NavigationBarCustom(currentIndex: 0, onTap: (index) {}),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.warning),
+                title: Text('Alerta de Pragas'),
+                subtitle: Text('Detalhes do alerta de pragas.'),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 5, // Replace with actual data count
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(Icons.bug_report),
+                      title: Text('Dado $index'),
+                      subtitle: Text('Informações do dado $index'),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.detail,
+                          arguments: 'Dado $index',
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }

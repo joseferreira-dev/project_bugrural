@@ -1,66 +1,65 @@
+import 'package:bugrural/models/property.dart';
+import 'package:bugrural/models/user.dart';
+import 'package:bugrural/widgets/banner_slider.dart';
+import 'package:bugrural/widgets/navigation_bar.dart';
+import 'package:bugrural/widgets/property_card.dart';
 import 'package:flutter/material.dart';
-import '../models/user.dart';
-import '../widgets/user_header.dart';
-import '../widgets/custom_card.dart';
-import '../widgets/navigation_bar.dart';
-import '../widgets/news_banner.dart';
-import 'property_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  final User user = User(name: 'José da Silva', email: 'admin@bugrural.com.br', avatarUrl: 'https://example.com/avatar.png');
+  final User user = User(
+    name: 'Admin',
+    email: 'admin@bugrural.com.br',
+    avatarUrl: 'assets/images/avatar.png',
+  );
 
   @override
   Widget build(BuildContext context) {
+    final List<Property> properties = [
+      Property(name: 'Propriedade 1', location: 'Localização 1', backgroundColor: Colors.blue[100]!),
+      Property(name: 'Propriedade 2', location: 'Localização 2', backgroundColor: Colors.green[100]!),
+      // Adicionar mais propriedades conforme necessário
+    ];
+
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(
+        title: Row(
           children: [
-            UserHeader(user: user),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Buscar propriedade',
-                  prefixIcon: Icon(Icons.search),
-                  suffixIcon: Icon(Icons.filter_list),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+            CircleAvatar(
+              backgroundImage: AssetImage(user.avatarUrl),
+            ),
+            SizedBox(width: 10),
+            Text(user.name),
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Buscar...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: NewsBanner(
-                tag: 'Novidade',
-                title: 'Monitoramento do bicudo-da-cana adicionado',
-                imageUrl: 'assets/images/news_image.png',
+            SizedBox(height: 20),
+            BannerSlider(),
+            SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: properties.length,
+                itemBuilder: (context, index) {
+                  return PropertyCard(property: properties[index]);
+                },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text('Suas propriedades', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            ),
-            CustomCard(
-              title: 'Fazenda São José',
-              subtitle: 'Caruaru - Pernambuco',
-              icon: Icons.home,
-              color: Colors.lightGreenAccent,
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PropertyDetailsScreen())),
-            ),
-            CustomCard(
-              title: 'Canavial Costamar',
-              subtitle: 'Recife - Pernambuco',
-              icon: Icons.home,
-              color: Colors.pinkAccent,
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PropertyDetailsScreen())),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBarCustom(currentIndex: 0, onTap: (index) {}),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }

@@ -1,28 +1,50 @@
+import 'package:bugrural/utils/routes.dart';
+import 'package:bugrural/widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
-import '../models/user.dart';
-import '../widgets/user_header.dart';
-import '../widgets/navigation_bar.dart';
 
 class MicroclimateScreen extends StatelessWidget {
-  final User user = User(name: 'José da Silva', email: 'admin@bugrural.com.br', avatarUrl: 'https://example.com/avatar.png');
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          UserHeader(user: user),
-          Card(
-            child: ListTile(
-              title: Text('Monitoramento de Pragas'),
-              subtitle: Text('Praga detectada'),
-            ),
-          ),
-          // Add list of monitoring data here
-        ],
+      appBar: AppBar(
+        title: Text('Microclima'),
       ),
-      bottomNavigationBar: NavigationBarCustom(currentIndex: 0, onTap: (index) {}),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.warning),
+                title: Text('Alerta de Microclima'),
+                subtitle: Text('Detalhes do alerta de microclima.'),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 5, // Replace with actual data count
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(Icons.thermostat),
+                      title: Text('Dado $index'),
+                      subtitle: Text('Informações do dado $index'),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.detail,
+                          arguments: 'Dado $index',
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }
