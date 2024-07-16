@@ -5,23 +5,31 @@ import 'package:flutter/material.dart';
 class PropertyCard extends StatelessWidget {
   final Property property;
 
-  const PropertyCard({Key? key, required this.property}) : super(key: key);
+  const PropertyCard({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: property.backgroundColor,
-      child: ListTile(
-        leading: Icon(Icons.home),
-        title: Text(property.name),
-        subtitle: Text(property.location),
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            Routes.propertyDetail,
-            arguments: property,
-          );
-        },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
+        child: ListTile(
+          leading: property.icon,
+          title: Text(
+            property.name,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: Text(property.location),
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              Routes.propertyDetail,
+              arguments: property,
+            );
+          },
+        ),
       ),
     );
   }

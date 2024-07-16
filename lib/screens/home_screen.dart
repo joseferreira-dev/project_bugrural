@@ -15,49 +15,129 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Property> properties = [
-      Property(name: 'Propriedade 1', location: 'Localização 1', backgroundColor: Colors.blue[100]!),
-      Property(name: 'Propriedade 2', location: 'Localização 2', backgroundColor: Colors.green[100]!),
-      // Adicionar mais propriedades conforme necessário
+      Property(
+          name: 'Fazenda São José',
+          location: 'Caruaru - Pernambuco',
+          area: '20 hectares',
+          backgroundColor: const Color(0xFFE7F0DC),
+          icon: const Icon(
+            Icons.home_work,
+            size: 40,
+            color: Color(0xFF688B43),
+          ),
+          image: 'assets/images/property_image1.png',
+          pestStatus: true),
+      Property(
+          name: 'Canavial Costamar',
+          location: 'Recife - Pernambuco',
+          area: '150.000 m²',
+          backgroundColor: const Color(0xFFF0DCDC),
+          icon: const Icon(
+            Icons.house,
+            size: 40,
+            color: Color(0xFF703030),
+          ),
+          image: 'assets/images/property_image2.png',
+          pestStatus: false),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(user.avatarUrl),
-            ),
-            SizedBox(width: 10),
-            Text(user.name),
-          ],
+        backgroundColor: const Color(0xFF688B43),
+        title: const Padding(
+          padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage('assets/images/avatar.png'),
+              ),
+              SizedBox(
+                width: 16.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Seja bem-vindo!',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'José da Silva',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Buscar...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+      body: Stack(
+        children: [
+          // Fundo verde
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: Container(
+              color: const Color(0xFF688B43),
+            ),
+          ),
+          // Conteúdo principal
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Buscar...',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.filter_alt),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF688B43),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 30),
+                BannerSlider(),
+                const SizedBox(height: 30),
+                const Text(
+                  'Suas propriedades',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: properties.length,
+                    itemBuilder: (context, index) {
+                      return PropertyCard(property: properties[index]);
+                    },
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            BannerSlider(),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: properties.length,
-                itemBuilder: (context, index) {
-                  return PropertyCard(property: properties[index]);
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: CustomNavigationBar(),
     );
