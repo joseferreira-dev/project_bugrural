@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   final User user = User(
-    name: 'Admin',
+    name: 'José da Silva',
     email: 'admin@bugrural.com.br',
     avatarUrl: 'assets/images/avatar.png',
   );

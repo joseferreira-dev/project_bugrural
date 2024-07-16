@@ -155,7 +155,7 @@ class PropertyDetailScreen extends StatelessWidget {
                       GridView.count(
                         crossAxisCount: 2,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           _buildManagementCard(
                               context,
@@ -163,18 +163,20 @@ class PropertyDetailScreen extends StatelessWidget {
                               Routes.microclimate,
                               Icons.cloud,
                               const Color(0xFF688B43),
-                              const Color(0xFFE7F0DC)),
+                              const Color(0xFFE7F0DC),
+                              property),
                           _buildManagementCard(
                             context,
                             'Pragas',
                             Routes.pest,
                             Icons.bug_report,
                             property.pestStatus
-                                ? Color(0xFF688B43)
+                                ? const Color(0xFF688B43)
                                 : const Color(0xFF703030),
                             property.pestStatus
                                 ? const Color(0xFFE7F0DC)
                                 : const Color(0xFFF0DCDC),
+                            property,
                           ),
                         ],
                       ),
@@ -191,14 +193,14 @@ class PropertyDetailScreen extends StatelessWidget {
   }
 
   Widget _buildManagementCard(BuildContext context, String title, String route,
-      IconData icon, Color color, Color background) {
+      IconData icon, Color color, Color background, Property property) {
     return Card(
       margin: const EdgeInsets.all(8.0),
       color: background,
       elevation: 4.0,
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, route);
+          Navigator.pushNamed(context, route, arguments: property);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
