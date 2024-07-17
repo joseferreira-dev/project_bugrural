@@ -1,4 +1,4 @@
-<img src="logoDetalhadoDoProjeto.png"/>
+<img href="logoDetalhadoDoProjeto.png"/>
 
 # BugRural
 
